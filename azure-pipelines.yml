@@ -12,9 +12,6 @@ trigger:
 
 pool:
   vmImage: "ubuntu-latest"
-variables:
-  - name: image_commit
-    value: unset
 
 steps:
   - task: Bash@3
@@ -22,11 +19,11 @@ steps:
       targetType: "inline"
       script: |
         make build
-        # IMAGE_COMMIT="$(make get_commit)""
-        IMAGE_COMMIT="ggghhh"
-        echo "$(IMAGE_COMMIT)"
-        IMAGE_VERSION=$(make get_version)
-        echo '##vso[task.setvariable variable=image_commit]$IMAGE_COMMIT'
+
+  - bash: |
+      IMAGE_COMMIT="$(make get_commit)"
+      echo "##vso[task.setvariable variable=IMAGE_COMMIT]$IMAGE_COMMIT"
+      echo "$(IMAGE_COMMIT)"
 
   - task: ECRPushImage@1
     inputs:
