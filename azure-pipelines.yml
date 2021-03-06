@@ -24,7 +24,7 @@ steps:
         make build
         export IMAGE_COMMIT=$(make get_commit)
         export IMAGE_VERSION=$(make get_version)
-        echo '##vso[task.setvariable variable=image_commit]$IMAGE_COMMIT'
+        echo '##vso[task.setvariable variable=image_commit]$env:IMAGE_COMMIT'
 
   - task: ECRPushImage@1
     inputs:
