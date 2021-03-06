@@ -21,6 +21,8 @@ steps:
         make build
         export IMAGE_COMMIT=$(make get_commit)
         export IMAGE_VERSION=$(make get_version)
+        echo "IMAGE COMMIT: ${IMAGE_COMMIT}"
+        echo "IMAGE VERSION: ${IMAGE_VERSION}"
 
   - task: ECRPushImage@1
     inputs:
