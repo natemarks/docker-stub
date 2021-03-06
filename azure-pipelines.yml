@@ -22,9 +22,10 @@ steps:
       targetType: "inline"
       script: |
         make build
-        export IMAGE_COMMIT=$(make get_commit)
-        export IMAGE_VERSION=$(make get_version)
-        echo '##vso[task.setvariable variable=image_commit]$env:IMAGE_COMMIT'
+        IMAGE_COMMIT=$(make get_commit)
+        echo $IMAGE_COMMIT
+        IMAGE_VERSION=$(make get_version)
+        echo '##vso[task.setvariable variable=image_commit]$IMAGE_COMMIT'
 
   - task: ECRPushImage@1
     inputs:
