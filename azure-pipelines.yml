@@ -12,6 +12,9 @@ trigger:
 
 pool:
   vmImage: "ubuntu-latest"
+variables:
+  - name: image_commit
+    value: unset
 
 steps:
   - task: Bash@3
@@ -21,8 +24,7 @@ steps:
         make build
         export IMAGE_COMMIT=$(make get_commit)
         export IMAGE_VERSION=$(make get_version)
-        echo "IMAGE COMMIT: ${IMAGE_COMMIT}"
-        echo "IMAGE VERSION: ${IMAGE_VERSION}"
+        echo '##vso[task.setvariable variable=image_commit]$IMAGE_COMMIT'
 
   - task: ECRPushImage@1
     inputs:
@@ -40,4 +42,4 @@ steps:
       imageSource: "imagename"
       sourceImageName: "docker-stub"
       repositoryName: "docker-stub"
-      pushTag: "aaabbb"
+      pushTag: $(image_commit)
