@@ -22,4 +22,4 @@ help: ## Show this help.
 
 build: ## build the docker image locally with latest/hash tag
 	@echo Run static code checks
-	docker build --tag docker-stub:latest --tag docker-stub:$(COMMIT_HASH) .
+	docker build --tag docker-stub:$(COMMIT_HASH) .
