@@ -19,6 +19,8 @@ steps:
       targetType: "inline"
       script: |
         make build
+        export IMAGE_COMMIT=$(make get_commit)
+        export IMAGE_VERSION=$(make get_version)
 
   - task: ECRPushImage@1
     inputs:
@@ -27,3 +29,4 @@ steps:
       imageSource: "imagename"
       sourceImageName: "docker-stub"
       repositoryName: "docker-stub"
+      pushTag: "$(IMAGE_COMMIT)"

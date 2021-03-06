@@ -23,5 +23,9 @@ help: ## Show this help.
 build: ## build the docker image locally with latest/hash tag
 	@echo Run static code checks
 	docker build --tag docker-stub:$(COMMIT_HASH) .
-	@export DOCKER_TAG=$(COMMIT_HASH)
-	@echo "DOCKER TAG: ${DOCKER_TAG}"
+
+get_commit: ## echo the commit hash
+	@echo $(COMMIT_HASH)
+
+get_version: ## echo the version
+	@echo $(VERSION)
