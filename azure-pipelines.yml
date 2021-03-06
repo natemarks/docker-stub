@@ -1,0 +1,29 @@
+# Python package
+# Create and test a Python package on multiple Python versions.
+# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+  branches:
+    include:
+      - dev
+      - main
+      - release*
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - task: Bash@3
+    inputs:
+      targetType: "inline"
+      script: |
+        make build
+
+  - task: ECRPushImage@1
+    inputs:
+      awsCredentials: "admin access to i-platform-dev AWS account(151924297945)"
+      regionName: "us-east-1"
+      imageSource: "imagename"
+      sourceImageName: "docker-stub"
+      repositoryName: "docker-stub"
